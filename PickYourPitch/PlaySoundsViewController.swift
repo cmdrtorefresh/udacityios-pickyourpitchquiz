@@ -26,12 +26,7 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if hasSavedPitchValueInPersistence(){
-            sliderView.value = getSavedPitchValueInPersistence()
-        } else {
-            savePitchValueToPersistence()
-        }
-        
+        sliderView.value = getSavedPitchValueInPersistence()
 
         do {
             audioPlayer = try AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
@@ -108,19 +103,12 @@ class PlaySoundsViewController: UIViewController {
         savePitchValueToPersistence()
     }
     
-    func hasSavedPitchValueInPersistence() -> Bool {
-        if let _ = NSUserDefaults.standardUserDefaults().valueForKey("pitchValue"){
-            return true
-        }
-        return false
+    func savePitchValueToPersistence(){
+        NSUserDefaults.standardUserDefaults().setValue(sliderView.value, forKey: "pitchValue")
     }
     
     func getSavedPitchValueInPersistence() -> Float {
         return NSUserDefaults.standardUserDefaults().floatForKey("pitchValue")
-    }
-    
-    func savePitchValueToPersistence(){
-        NSUserDefaults.standardUserDefaults().setValue(sliderView.value, forKey: "pitchValue")
     }
     
 }

@@ -13,6 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    func setUpPitchValue(){
+        if !hasSavedPitchValueInPersistence(){
+            NSUserDefaults.standardUserDefaults().setFloat(0.0, forKey: "pitchValue")
+        }
+    }
+    
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Usually this is not overridden. Using the "did finish launching" method is more typical
         print("App Delegate: will finish launching")
@@ -59,5 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         print("App Delegate: will terminate")
     }
+    
+    func hasSavedPitchValueInPersistence() -> Bool {
+        if let _ = NSUserDefaults.standardUserDefaults().valueForKey("pitchValue"){
+            return true
+        }
+        return false
+    }
+    
+    
+    
 }
 
